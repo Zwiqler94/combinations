@@ -1,24 +1,47 @@
 {
-  "name": "combinations",
+  "name": "@zwiqler94/combinations",
   "version": "1.0.0",
-  "description": "find all combinations from array",
-  "main": "index.js",
+  "description": "Find all combinations from an array",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "files": [
+    "dist",
+    "README.md",
+    "History.md",
+    "LICENSE"
+  ],
   "repository": {
     "type": "git",
-    "url": "git://github.com/jgallen23/combinations.git"
+    "url": "https://github.com/Zwiqler94/combinations.git"
   },
+  "bugs": {
+    "url": "https://github.com/Zwiqler94/combinations/issues"
+  },
+  "homepage": "https://github.com/Zwiqler94/combinations#readme",
   "keywords": [
     "combination",
     "combo",
     "array"
   ],
   "scripts": {
-    "test": "mocha --ui tdd"
+    "build": "tsc -p tsconfig.build.json",
+    "test": "npm run build && mocha --ui tdd -r ts-node/register test/**/*.test.ts",
+    "prepublishOnly": "npm test"
   },
-  "author": "Greg Allen <@greg_allen> (http://jga.me)",
+  "author": "Zwiqler94 <10226084+Zwiqler94@users.noreply.github.com>",
+  "contributors": [
+    "Greg Allen <@greg_allen> (http://jga.me)"
+  ],
   "license": "MIT",
+  "publishConfig": {
+    "access": "public"
+  },
   "dependencies": {},
   "devDependencies": {
-    "mocha": "*"
+    "@types/mocha": "^10.0.10",
+    "@types/node": "^24.5.2",
+    "mocha": "^11.7.2",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.9.2"
   }
 }

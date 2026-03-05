@@ -59,3 +59,7 @@ typings/
 
 #microsoft vscode
 .vscode
+dist/index.d.ts
+dist/index.js
+.DS_Store
+y.txt

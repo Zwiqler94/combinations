@@ -1,56 +1,108 @@
-Combinations [![Build Status](https://travis-ci.org/jgallen23/combinations.svg?branch=master)](https://travis-ci.org/jgallen23/combinations)
+Combinations
 ============
 
-# Installation
+TypeScript fork of the `combinations` package that returns all array
+combinations within optional size bounds.
 
-    npm install combinations
+Installation
+------------
 
-# Usage
+```bash
+npm install @zwiqler94/combinations
+```
 
-    combinations(array, [min_output_array_size], [max])
+Usage
+-----
 
-*   takes in an array, and outputs an array of arrays, containing all possible combinations of values in the original array.
-*   combinations are of all sizes: all combinations of one element, and all combinations of 2 elements, and so on
-*   minimum number of elements in a combination can be specified (min_output_array_size)
-*   maximum number of elements in a combination can be also specified
-*   if maximum combination value is bigger than array elements it will be overridden to the array length
+```js
+const combinations = require("@zwiqler94/combinations");
 
-# Example
+const myArray = ["red", "orange", "yellow", "green"];
 
-    var combinations = require('combinations');
-    var myArray = ['red', 'orange', 'yellow', 'green'];
-    
-    combinations(myArray); 
-  
-    //Output:
-    //  [ [ 'red' ],                      [ 'orange' ],    
-    //    [ 'yellow' ],                   [ 'green' ],  
-    //    [ 'red', 'orange' ],            [ 'red', 'yellow' ],
-    //    [ 'red', 'green' ],             [ 'orange', 'yellow' ],
-    //    [ 'orange', 'green' ],          [ 'yellow', 'green' ],
-    //    [ 'red', 'orange', 'yellow' ],  [ 'red', 'orange', 'green' ],
-    //    [ 'red', 'yellow', 'green' ],   [ 'orange', 'yellow', 'green' ],
-    //    [ 'red', 'orange', 'yellow', 'green' ] ]
+combinations(myArray);
+// [
+//   [ "red" ],
+//   [ "orange" ],
+//   [ "yellow" ],
+//   [ "green" ],
+//   [ "red", "orange" ],
+//   [ "red", "yellow" ],
+//   [ "red", "green" ],
+//   [ "orange", "yellow" ],
+//   [ "orange", "green" ],
+//   [ "yellow", "green" ],
+//   [ "red", "orange", "yellow" ],
+//   [ "red", "orange", "green" ],
+//   [ "red", "yellow", "green" ],
+//   [ "orange", "yellow", "green" ],
+//   [ "red", "orange", "yellow", "green" ]
+// ]
+```
 
-# Example with a minimum array size
+API
+---
 
-    combinations(myArray, 2);
-    
-    //Output:
-    //  [ [ 'red', 'orange' ],            [ 'red', 'yellow' ],
-    //    [ 'red', 'green' ],             [ 'orange', 'yellow' ],
-    //    [ 'orange', 'green' ],          [ 'yellow', 'green' ],
-    //    [ 'red', 'orange', 'yellow' ],  [ 'red', 'orange', 'green' ],
-    //    [ 'red', 'yellow', 'green' ],   [ 'orange', 'yellow', 'green' ],
-    //    [ 'red', 'orange', 'yellow', 'green' ] ]
+```ts
+combinations<T>(
+  array: T[],
+  minOutputSize?: number,
+  maxOutputSize?: number
+): T[][]
+```
 
-# Example with a minimum and maximum array size
+- Returns combinations in order of increasing size, preserving input order
+  within each combination.
+- `minOutputSize` defaults to `1`.
+- `maxOutputSize` defaults to `array.length`.
+- Size bounds are inclusive.
+- Bounds are floored to integers and clamped to `[1, array.length]`.
+- If the normalized range is impossible (`max < min`), returns `[]`.
+- Duplicate input values are handled positionally.
+- Throws a `TypeError` when the first argument is not an array.
 
-    combinations(myArray, 2, 3);
-    
-    //Output:
-    //  [ [ 'red', 'orange' ],            [ 'red', 'yellow' ],
-    //    [ 'red', 'green' ],             [ 'orange', 'yellow' ],
-    //    [ 'orange', 'green' ],          [ 'yellow', 'green' ],
-    //    [ 'red', 'orange', 'yellow' ],  [ 'red', 'orange', 'green' ],
-    //    [ 'red', 'yellow', 'green' ],   [ 'orange', 'yellow', 'green' ] ]
+Examples with Bounds
+--------------------
+
+```js
+const combinations = require("@zwiqler94/combinations");
+const myArray = ["red", "orange", "yellow", "green"];
+
+combinations(myArray, 2);
+// [
+//   [ "red", "orange" ],
+//   [ "red", "yellow" ],
+//   [ "red", "green" ],
+//   [ "orange", "yellow" ],
+//   [ "orange", "green" ],
+//   [ "yellow", "green" ],
+//   [ "red", "orange", "yellow" ],
+//   [ "red", "orange", "green" ],
+//   [ "red", "yellow", "green" ],
+//   [ "orange", "yellow", "green" ],
+//   [ "red", "orange", "yellow", "green" ]
+// ]
+
+combinations(myArray, 2, 3);
+// [
+//   [ "red", "orange" ],
+//   [ "red", "yellow" ],
+//   [ "red", "green" ],
+//   [ "orange", "yellow" ],
+//   [ "orange", "green" ],
+//   [ "yellow", "green" ],
+//   [ "red", "orange", "yellow" ],
+//   [ "red", "orange", "green" ],
+//   [ "red", "yellow", "green" ],
+//   [ "orange", "yellow", "green" ]
+// ]
+```
+
+Credits
+-------
+
+- Fork maintained by Zwiqler94.
+- Forked from the original `combinations` package.
+- Original author: Greg Allen.
+- Upstream lineage:
+  - [firstandthird/combinations](https://github.com/firstandthird/combinations)
+  - [jgallen23/combinations](https://github.com/jgallen23/combinations)
